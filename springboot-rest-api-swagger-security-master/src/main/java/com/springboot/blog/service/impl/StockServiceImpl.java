@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Razan Yassin
+//1182226
 @Service
 public class StockServiceImpl implements StockService {
 

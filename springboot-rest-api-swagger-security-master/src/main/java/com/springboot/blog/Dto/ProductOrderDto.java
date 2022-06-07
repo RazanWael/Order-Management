@@ -1,23 +1,22 @@
 package com.springboot.blog.Dto;
 
-import com.springboot.blog.entity.Order;
-import com.springboot.blog.entity.Product;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Razan Yassin
+//1182226
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductOrderDto {
-//    private Product product;
-//    private Order order;
+    //table column
     private int product;
     private int order;
     private int quantity;
-
-
+    //Setters ang Getters
     public int getProduct() {
         return product;
     }

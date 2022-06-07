@@ -1,91 +1,69 @@
 package com.springboot.blog.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
+import java.util.Objects;
 
+//Razan Yassin
+//1182226
 @NoArgsConstructor
-//@Embeddable
+@AllArgsConstructor
+@Data
+@Embeddable
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "order")
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "product")
 public class ProductOrderPK implements Serializable {
     
         private static final long serialVersionUID = 476151177562655457L;
+        //Defining the many-to-one relationship between the productorder table and the order table
 
-        @ManyToOne(optional = false, fetch = FetchType.LAZY)
-        @JoinColumn(name = "order_id")
-        private Order order;
+        //Setter and Getters
 
-        @ManyToOne(optional = false, fetch = FetchType.LAZY)
-        @JoinColumn(name = "product_id")
-        private Product product;
+         Integer orderId;
+         Integer productId;
 
-         public Order getOrder() {
-            return order;
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
+
+    @Override
+        public int hashCode() {
+            return Objects.hash(orderId,productId);
         }
 
-        public void setOrder(Order order) {
-            this.order = order;
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            ProductOrderPK other = (ProductOrderPK) obj;
+            return Objects.equals(getOrderId(), other.getOrderId())&& Objects.equals(getProductId(),other.getProductId());
         }
-
-        public Product getProduct() {
-            return product;
-        }
-
-        public void setProduct(Product product) {
-            this.product = product;
-        }
-
-//        @Override
-//        public int hashCode() {
-//            final int prime = 31;
-//            int result = 1;
-//
-//            result = prime * result + ((order.getOrderId() == null)
-//                    ? 0
-//                    : order
-//                    .getOrderId().hashCode());
-//            result = prime * result + ((product.getProductId() == null)
-//                    ? 0
-//                    : product
-//                    .getProductId().hashCode());
-//
-//            return result;
-//        }
-//
-//        @Override
-//        public boolean equals(Object obj) {
-//            if (this == obj) {
-//                return true;
-//            }
-//            if (obj == null) {
-//                return false;
-//            }
-//            if (getClass() != obj.getClass()) {
-//                return false;
-//            }
-//            ProductOrderPK other = (ProductOrderPK) obj;
-//            if (order == null) {
-//                if (other.order != null) {
-//                    return false;
-//                }
-//            } else if (!order.equals(other.order)) {
-//                return false;
-//            }
-//
-//            if (product == null) {
-//                if (other.product != null) {
-//                    return false;
-//                }
-//            } else if (!product.equals(other.product)) {
-//                return false;
-//            }
-//
-//            return true;
-//        }
 
 
 }

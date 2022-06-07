@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//Razan Yassin
+//1182226
+//It is used to mark the class as a service provider.
 @Service
 public class CustomerServiceImpl implements CustomerService {
 

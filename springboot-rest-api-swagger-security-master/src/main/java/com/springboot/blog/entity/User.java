@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Set;
 
+//Razan Yassin
+//1182226
 @Data
 @Entity
 @Table(name = "users", uniqueConstraints = {
@@ -12,7 +14,7 @@ import java.util.Set;
         @UniqueConstraint(columnNames = {"email"})
 })
 public class User {
-
+    //declare the primary key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

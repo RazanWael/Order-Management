@@ -22,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+//Razan Yassin
+//1182226
 @Configuration //Spring configuration class, Annotating a class with the @Configuration indicates that the class can be used by the Spring IoC container as a source of bean definitions.
 /**
  * The WebSecurityConfig class is annotated with @EnableWebSecurity
@@ -31,11 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  *
  * The configure(HttpSecurity) method defines which URL paths should be secured and which should not. Specifically, the / and /home paths are configured to not require any authentication. All other paths must be authenticated.
  */
-@EnableWebSecurity
-/**
- * to allow method level Spring security annotation for our application,
- * so in controller can use The @PreAuthorize annotation to check before method execution.
- */
+@EnableWebSecurity // to allow method level Spring security annotation for our application,
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -75,7 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-   // .antMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -89,13 +86,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    //    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails ramesh = User.builder().username("ramesh").password(passwordEncoder()
-//                .encode("password")).roles("USER").build();
-//        UserDetails admin = User.builder().username("admin").password(passwordEncoder()
-//                .encode("admin")).roles("ADMIN").build();
-//        return new InMemoryUserDetailsManager(ramesh, admin);
-//    }
+
 }

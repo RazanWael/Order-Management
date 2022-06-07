@@ -43,7 +43,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
-//        Order order = mapToEntity(OrderDto);
         Order order = new Order();
         order.setOrderId(orderDto.getOrderId());
         order.setCustomer(new Customer(orderDto.getCustomerId()));
@@ -69,24 +68,22 @@ public class OrderServiceImpl implements OrderService {
         }
         newOrder.setOrderProducts(toSave);
         return mapToDTO(newOrder);
-
-
     }
 
     @Override
     public List<OrderDto> getAllOrders() {
         List<Order> orders =orderRepository.findAll();
-        for(int i=0; i<orders.size();i++){
-            for (int j=0;j<allProductOrders.size();j++){
-               if(allProductOrders.get(j).getOrder()==orders.get(i).getOrderId()){
-                   int product_id = allProductOrders.get(j).getProduct();
-                   int order_id = allProductOrders.get(j).getOrder();
-                   int quantity = allProductOrders.get(j).getQuantity();
-                   orders.get(i).getOrderProducts().add(new ProductOrder(new Order(order_id),new Product(product_id),quantity,0,0));
-               }
-            }
-
-        }
+//        for(int i=0; i<orders.size();i++){
+//            for (int j=0;j<allProductOrders.size();j++){
+//                if(allProductOrders.get(j).getOrder()==orders.get(i).getOrderId()){
+//                    int product_id = allProductOrders.get(j).getProduct();
+//                    int order_id = allProductOrders.get(j).getOrder();
+//                    int quantity = allProductOrders.get(j).getQuantity();
+//                    orders.get(i).getOrderProducts().add(new ProductOrder(new Order(order_id),new Product(product_id),quantity,0,0));
+//                }
+//            }
+//
+//        }
         return orders.stream().map(order -> mapToDTO(order))
                 .collect(Collectors.toList());
     }
@@ -95,15 +92,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto getOrderById(int id) {
         Order order =orderRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order", "id", id));
-        allProductOrders = removeDuplicates(allProductOrders);
-            for (int j=0;j<allProductOrders.size();j++){
-                if(allProductOrders.get(j).getOrder()==order.getOrderId()){
-                    int product_id = allProductOrders.get(j).getProduct();
-                    int order_id = allProductOrders.get(j).getOrder();
-                    int quantity = allProductOrders.get(j).getQuantity();
-                    order.getOrderProducts().add(new ProductOrder(new Order(order_id),new Product(product_id),quantity,0,0));
-                }
-            }
+//        allProductOrders = removeDuplicates(allProductOrders);
+//        for (int j=0;j<allProductOrders.size();j++){
+//            if(allProductOrders.get(j).getOrder()==order.getOrderId()){
+//                int product_id = allProductOrders.get(j).getProduct();
+//                int order_id = allProductOrders.get(j).getOrder();
+//                int quantity = allProductOrders.get(j).getQuantity();
+//                order.getOrderProducts().add(new ProductOrder(new Order(order_id),new Product(product_id),quantity,0,0));
+//            }
+//        }
         return mapToDTO(order);
     }
 
@@ -116,10 +113,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrderById(int id) {
         Order order = orderRepository.findById( id).orElseThrow(() -> new ResourceNotFoundException("Order", "id", id));
-        for (int i=0;i<allProductOrders.size();i++){
-            if (allProductOrders.get(i).getOrder()==id){
-                allProductOrders.remove(i);
-            }
+        for (int i=0;i<order.getOrderProducts().size();i++){
+            int product_id = order.getOrderProducts().get(i).getProduct().getProductId();
+            int order_id = order.getOrderId();
+            productOrderService.deleteProductOrderById(product_id,order_id);
         }
         orderRepository.delete(order);
     }
@@ -156,13 +153,13 @@ public class OrderServiceImpl implements OrderService {
         orderDto.setCustomerId(order.getCustomer().getCustomerId());
         orderDto.setOrderedAt(new Date());
         List<ProductOrderDto> toSave = new ArrayList<ProductOrderDto>();
-        allProductOrders = removeDuplicates(allProductOrders);
+//        allProductOrders = removeDuplicates(allProductOrders);
         for (int i=0;i<order.getOrderProducts().size();i++){
             int product_id = order.getOrderProducts().get(i).getProduct().getProductId();
             int order_id = order.getOrderProducts().get(i).getOrder().getOrderId();
             int quantity = order.getOrderProducts().get(i).getQuantity();
             toSave.add(new ProductOrderDto(product_id,order_id,quantity));
-            allProductOrders.add(new ProductOrderDto(product_id,order_id,quantity));
+//            allProductOrders.add(new ProductOrderDto(product_id,order_id,quantity));
         }
         orderDto.setProducts_orders(toSave);
         return orderDto;
@@ -201,11 +198,12 @@ public class OrderServiceImpl implements OrderService {
                 int quantity = orderDto.getProducts_orders().get(i).getQuantity();
                 if (quantity < stockService.quantityOfProductID(product_id)) {
                     toSave.add(new ProductOrder(order, new Product(product_id, slug, name, reference, price, vat, stockable), quantity, price, vat));
-                 }
                 }
+            }
         }
         order.setOrderProducts(toSave);
         return order;
     }
+
 
 }

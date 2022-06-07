@@ -2,6 +2,8 @@ package com.springboot.blog.exception;
 
 import org.springframework.http.HttpStatus;
 
+//Razan Yassin
+//1182226
 public class BlogAPIException extends RuntimeException {
 
     private HttpStatus status;

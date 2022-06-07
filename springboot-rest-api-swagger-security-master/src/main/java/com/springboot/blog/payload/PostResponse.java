@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+//Razan Yassin
+//1182226
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostResponse {
+
     private List<PostDto> content;
     private int pageNo;
     private int pageSize;

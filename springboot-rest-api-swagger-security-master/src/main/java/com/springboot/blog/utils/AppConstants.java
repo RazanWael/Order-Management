@@ -1,5 +1,7 @@
 package com.springboot.blog.utils;
 
+//Razan Yassin
+//1182226
 public class AppConstants {
 
     public static final String DEFAULT_PAGE_NUMBER = "0";

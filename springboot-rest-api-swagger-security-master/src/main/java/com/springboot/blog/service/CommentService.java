@@ -4,6 +4,8 @@ import com.springboot.blog.Dto.CommentDto;
 
 import java.util.List;
 
+//Razan Yassin
+//1182226
 public interface CommentService {
     CommentDto createComment(long postId, CommentDto commentDto);
 

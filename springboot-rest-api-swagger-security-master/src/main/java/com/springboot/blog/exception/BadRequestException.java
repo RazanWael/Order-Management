@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Author: Mohammed Kharma
- */
+//Razan Yassin
+//1182226
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class BadRequestException extends RuntimeException {
 

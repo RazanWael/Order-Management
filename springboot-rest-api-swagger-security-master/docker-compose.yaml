@@ -2,13 +2,13 @@ version: '3.9'
 
 services:
   mysql:
-    image: mysql:8
+    image: mysql:latest
     container_name: mysql
     environment:
       - "MYSQL_DATABASE=bzu"
       - "MYSQL_USER=user"
-      - "MYSQL_PASSWORD=123456wael0"
-      - "MYSQL_ROOT_PASSWORD=123456wael0"
+      - "MYSQL_PASSWORD=user"
+      - "MYSQL_ROOT_PASSWORD=root"
     ports:
       - "127.0.0.1:3307:3306"
     volumes:

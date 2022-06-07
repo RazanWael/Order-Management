@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+//Razan Yassin
+//1182226
 @Configuration
 public class SwaggerConfig {
 
@@ -36,10 +38,6 @@ public class SwaggerConfig {
         );
     }
 
-    /**
-     * In order to create Swagger docket
-     * @return
-     */
     @Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)

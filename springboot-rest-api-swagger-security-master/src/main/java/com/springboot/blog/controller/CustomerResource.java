@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+//Razan Yassin
+//1182226
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerResource {
